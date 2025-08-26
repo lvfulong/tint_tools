@@ -16,6 +16,9 @@ if(MSVC)
     add_compile_options(/W3)
     add_compile_options(/wd4819)
     add_compile_options(/wd5109)
+	# 禁用特定警告
+	add_compile_options(/wd4251)  # 禁用DLL接口警告
+	add_compile_options(/wd4217)  # 禁用符号重复导入警告
 endif()
 
 set(PROJECT_SOURCES)
@@ -57,7 +60,7 @@ if (WIN32)
 	    comdlg32.lib
 	    advapi32.lib
 	)
-	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE /IGNORE:4217")
 endif()
 
 # 添加第三方库
