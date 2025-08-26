@@ -62,7 +62,6 @@ set(TINT_GLSL_LIBS
     ${TINT_LIB_DIR}/tint_lang_glsl.lib
     ${TINT_LIB_DIR}/tint_lang_glsl_writer.lib
     ${TINT_LIB_DIR}/tint_lang_glsl_ir.lib
-    ${TINT_LIB_DIR}/tint_lang_glsl_type.lib
     ${TINT_LIB_DIR}/tint_lang_glsl_intrinsic.lib
     ${TINT_LIB_DIR}/tint_lang_glsl_validate.lib
     ${TINT_LIB_DIR}/tint_lang_glsl_writer_printer.lib
