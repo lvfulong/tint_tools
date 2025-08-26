@@ -8,13 +8,21 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# 设置编译选项
+if(MSVC)
+    add_compile_options(/utf-8)
+    add_compile_options(/Zc:preprocessor)
+    add_compile_options(/W3)
+    add_compile_options(/wd4819)
+    add_compile_options(/wd5109)
+endif()
+
 set(PROJECT_SOURCES)
 set(PROJECT_DEPENDENCIES)
 list(APPEND PROJECT_SOURCES
 	./main.cc
 )
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
-
 
 add_definitions(-DTINT_BUILD_GLSL_VALIDATOR=1)
 add_definitions(-DTINT_BUILD_GLSL_WRITER=1)
@@ -27,7 +35,7 @@ add_definitions(-DTINT_BUILD_WGSL_READER=1)
 add_definitions(-DTINT_BUILD_WGSL_WRITER=1)
 add_definitions(-DTINT_BUILD_TINTD=0)
 add_definitions(-DTINT_ENABLE_IR_VALIDATION=0)
-
+add_definitions(-DNOMINMAX)
 
 if (WIN32)
     add_definitions(-DTINT_BUILD_IS_LINUX=0)
@@ -51,30 +59,15 @@ if (WIN32)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
 
-# 添加tint库
+# 添加第三方库
 add_subdirectory(third_party/tint)
-
-# 使用方式1：链接完整的tint库（包含所有组件）
-list(APPEND PROJECT_DEPENDENCIES tint)
-
-# 使用方式2：按需链接特定组件（可选，取消注释使用）
-# list(APPEND PROJECT_DEPENDENCIES 
-#     tint_core      # 核心功能
-#     tint_wgsl      # WGSL语言支持
-#     tint_spirv     # SPIR-V支持
-#     tint_glsl      # GLSL支持
-#     tint_hlsl      # HLSL支持
-#     tint_msl       # MSL支持
-#     tint_utils     # 工具库
-#     tint_api       # API接口
-#     tint_cmd       # 命令行工具
-# )
-
 add_subdirectory(third_party/spirv-tools)
+add_subdirectory(third_party/abseil)
+
+# 链接库
+list(APPEND PROJECT_DEPENDENCIES tint)
 list(APPEND PROJECT_DEPENDENCIES spirv-tools spirv-tools-opt)
-
-
-
+list(APPEND PROJECT_DEPENDENCIES abseil)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_DEPENDENCIES})
 
