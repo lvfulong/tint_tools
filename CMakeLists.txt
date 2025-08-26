@@ -15,7 +15,24 @@ list(APPEND PROJECT_SOURCES
 )
 add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
+
+add_definitions(-DTINT_BUILD_GLSL_VALIDATOR=1)
+add_definitions(-DTINT_BUILD_GLSL_WRITER=1)
+add_definitions(-DTINT_BUILD_HLSL_WRITER=1)
+add_definitions(-DTINT_BUILD_IR_BINARY=0)
+add_definitions(-DTINT_BUILD_MSL_WRITER=1)
+add_definitions(-DTINT_BUILD_SPV_READER=1)
+add_definitions(-DTINT_BUILD_SPV_WRITER=1)
+add_definitions(-DTINT_BUILD_WGSL_READER=1)
+add_definitions(-DTINT_BUILD_WGSL_WRITER=1)
+add_definitions(-DTINT_BUILD_TINTD=0)
+add_definitions(-DTINT_ENABLE_IR_VALIDATION=0)
+
+
 if (WIN32)
+    add_definitions(-DTINT_BUILD_IS_LINUX=0)
+    add_definitions(-DTINT_BUILD_IS_MAC=0)
+    add_definitions(-DTINT_BUILD_IS_WIN=1)
 	list(APPEND PROJECT_SOURCES
 		./main.cc
 	)
