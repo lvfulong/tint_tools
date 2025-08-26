@@ -177,3 +177,8 @@ target_link_libraries(tint INTERFACE
     tint_cmd
 )
 target_include_directories(tint INTERFACE ${TINT_INCLUDE_DIR})
+
+# 设置运行时库
+set_target_properties(tint PROPERTIES
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+)

@@ -18,6 +18,15 @@ if (WIN32)
         SPIRV_TOOLS_SHAREDLIB
     )
     
+    # 设置运行时库
+    set_target_properties(spirv-tools PROPERTIES
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
+    
+    set_target_properties(spirv-tools-opt PROPERTIES
+        MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+    )
+    
     message(STATUS "SPIRV-Tools libraries configured:")
     message(STATUS "  - spirv-tools: ${CMAKE_CURRENT_SOURCE_DIR}/lib/win-x64/SPIRV-Tools.lib")
     message(STATUS "  - spirv-tools-opt: ${CMAKE_CURRENT_SOURCE_DIR}/lib/win-x64/SPIRV-Tools-opt.lib")

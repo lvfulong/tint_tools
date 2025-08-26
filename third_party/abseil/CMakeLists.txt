@@ -63,3 +63,8 @@ target_compile_definitions(abseil INTERFACE
     WIN32_LEAN_AND_MEAN
     NOMINMAX
 )
+
+# 设置运行时库
+set_target_properties(abseil PROPERTIES
+    MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+)
