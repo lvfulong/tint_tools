@@ -17,10 +17,19 @@ add_executable(${PROJECT_NAME} ${PROJECT_SOURCES})
 
 if (WIN32)
 	list(APPEND PROJECT_SOURCES
-	./main.cc
+		./main.cc
 	)
 	list(APPEND PROJECT_DEPENDENCIES
-		ws2_32
+		kernel32.lib
+		user32.lib
+		gdi32.lib
+		winspool.lib
+		shell32.lib
+		ole32.lib
+		oleaut32.lib
+		uuid.lib
+	    comdlg32.lib
+	    advapi32.lib
 	)
 	set_target_properties(${PROJECT_NAME} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
 endif()
@@ -44,7 +53,13 @@ list(APPEND PROJECT_DEPENDENCIES tint)
 #     tint_cmd       # 命令行工具
 # )
 
+add_subdirectory(third_party/spirv-tools)
+list(APPEND PROJECT_DEPENDENCIES spirv-tools spirv-tools-opt)
+
+
+
+
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_DEPENDENCIES})
 
-add_subdirectory(third_party)
+
 
