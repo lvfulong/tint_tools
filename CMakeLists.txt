@@ -64,11 +64,13 @@ endif()
 add_subdirectory(third_party/tint)
 add_subdirectory(third_party/spirv-tools)
 add_subdirectory(third_party/abseil)
+add_subdirectory(third_party/glslang)
 
 # 链接库
 list(APPEND PROJECT_DEPENDENCIES tint)
 list(APPEND PROJECT_DEPENDENCIES spirv-tools spirv-tools-opt)
 list(APPEND PROJECT_DEPENDENCIES abseil)
+list(APPEND PROJECT_DEPENDENCIES glslang)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_DEPENDENCIES})
 
